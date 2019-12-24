@@ -119,18 +119,18 @@ class ADARobot(Robot):
         os.environ.setdefault('TRAJOPT_LOG_THRESH', 'WARN')
 
         # Trajectory optimizer.
-        try:
-            from or_trajopt import TrajoptPlanner
-            self.trajopt_planner = TrajoptPlanner()
-        except ImportError:
-            self.trajopt_planner = None
-            logger.warning('Failed creating TrajoptPlanner. Is the or_trajopt'
-                           ' package in your workspace and built?')
+        #try:
+        #    from or_trajopt import TrajoptPlanner
+        #    self.trajopt_planner = TrajoptPlanner()
+        #except ImportError:
+        #    self.trajopt_planner = None
+        #    logger.warning('Failed creating TrajoptPlanner. Is the or_trajopt'
+        #                   ' package in your workspace and built?')
 
 
         ik_planners = Sequence(
             self.snap_planner,
-            self.trajopt_planner,
+         #   self.trajopt_planner,
         )
         planner_for_ik = FirstSupported(
             ik_planners,
@@ -141,7 +141,7 @@ class ADARobot(Robot):
         actual_planner = Sequence(
             self.snap_planner,
             self.ik_planner,
-            self.trajopt_planner,
+     #       self.trajopt_planner,
             self.vectorfield_planner,
             #self.greedyik_planner,
             self.cbirrt_planner
